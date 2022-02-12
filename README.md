@@ -1,8 +1,14 @@
-# Sample GitLab Project
+# Lawny Arduino Code
 
-This sample project shows how a project in GitLab looks for demonstration purposes. It contains issues, merge requests and Markdown files in many branches,
-named and filled with lorem ipsum.
+Arduino IDE Instructions:
 
-You can look around to get an idea how to structure your project and, when done, you can safely delete this project.
+Download the arduino IDE here: https://www.arduino.cc/en/software
+Goto File->Preferences and change the "Sketchbook location" path to point to the "embedded/lawny" directory.
+Which tells the arduino IDE where to look for 3rd party library files (which are included in this project)
 
-[Learn more about creating GitLab projects.](https://docs.gitlab.com/ee/gitlab-basics/create-project.html)
+VsCode:
+Repeat the same steps to change "Sketchbook location" as Vscode just directly references arduino IDE's functionality.
+Download the "C++ Extension pack" and "Auduino Extension" and open the "embedded folder", 
+The c_cpp_properties.json file should already make the include paths work.
+
+Easiest workflow IMO, is to use VsCode to develop, and the arduino IDE to program/debug.
