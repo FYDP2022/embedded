@@ -6,8 +6,11 @@ class CommunicationInterface {
     public:
         CommunicationInterface();
         ~CommunicationInterface();         
-        bool isCommandAvailable();
+        int isCommandAvailable();
+        String parseCommand();
+        int writeToSerial(String msg);
         void updateState();
+
         
     private:
         bool stringComplete;
