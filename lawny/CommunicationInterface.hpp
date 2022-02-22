@@ -7,7 +7,8 @@ class CommunicationInterface {
         CommunicationInterface();
         ~CommunicationInterface();         
         int isCommandAvailable();
-        String parseCommand();
+        char parseCommand();
+        String sendInputString();
         int writeToSerial(String msg);
         void updateState();
 

@@ -13,15 +13,21 @@ int CommunicationInterface::isCommandAvailable() {
     return Serial.available();
 }
 
-String CommunicationInterface::parseCommand() {
+char CommunicationInterface::parseCommand() {
     if (isCommandAvailable() > 0) {
         inputString = Serial.readStringUntil('\n');
-        int delim = inputString.indexOf(':');
-        String moduleSubstring = inputString.substring(0,delim);
-        return moduleSubstring;
+        char controller_opt = '';
+        int tokens = sscanf(cmd, "%[^:]", &controller_opt);
+        return controller_opt;
     }
     //testing code
-    return "noMsg";
+    return 'F';
+}
+
+String CommunicationInterface::sendInputString() {
+    String copy = String(inputString);
+    inputString = "";
+    return copy;
 }
 
 int CommunicationInterface::writeToSerial(String msg) {
