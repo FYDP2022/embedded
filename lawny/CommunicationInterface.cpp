@@ -16,8 +16,8 @@ int CommunicationInterface::isCommandAvailable() {
 char CommunicationInterface::parseCommand() {
     if (isCommandAvailable() > 0) {
         inputString = Serial.readStringUntil('\n');
-        char controller_opt = '';
-        int tokens = sscanf(cmd, "%[^:]", &controller_opt);
+        char controller_opt = inputString[0];
+        inputString = inputString.substring(1);
         return controller_opt;
     }
     //testing code

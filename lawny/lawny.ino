@@ -9,5 +9,6 @@ void setup() {
 
 //Will probably have to add code for calling modules in the loop
 void loop() {
-  Serial.println(interface.parseCommand());
+  interface.parseCommand();
+  Serial.print(interface.sendInputString());
 }
