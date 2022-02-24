@@ -2,8 +2,8 @@
 #include "NewPing.h"
 #include "MotorControl.hpp"
 
-#define MAX_DISTANCE 400
-#define DANGER_DISTANCE 50
+#define MAX_DISTANCE 50
+#define DANGER_DISTANCE 10
 
 #define sensor_front_echo 54
 #define sensor_front_trigger 55
