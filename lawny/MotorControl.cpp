@@ -12,8 +12,6 @@ int speed_in;
 int bias_in;
 int distance_cm_in;
 
-enum CMD_ENUM {FORWARD, REVERSE, STOP, POINT_LEFT, POINT_RIGHT, FWD_LEFT, FWD_RIGHT, BWD_LEFT, BWD_RIGHT};
-
 inline CMD_ENUM cmd_to_enum(char* s) {
     if(strcmp(s, "FORWARD") == 0) return CMD_ENUM::FORWARD;
     if(strcmp(s, "REVERSE") == 0) return CMD_ENUM::REVERSE;
@@ -63,10 +61,10 @@ void MotorController::init() {
     digitalWrite(RIGHT_DIR, CW);
     current_left_dir = CCW;
     current_right_dir = CW;
-    cli(); // Disable interupts to configure
+    //cli(); // Disable interupts to configure
     attachInterrupt(digitalPinToInterrupt(LEFT_MOTOR_ENCODER), MOTOR_COUNTER_ISR_L, RISING); // Encoder Pins
     attachInterrupt(digitalPinToInterrupt(RIGHT_MOTOR_ENCODER), MOTOR_COUNTER_ISR_R, RISING); // Encoder Pins
-    sei(); // Re-enable interupts
+    //sei(); // Re-enable interupts
 }
 
 void MotorController::update_state() { // To be called very often

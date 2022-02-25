@@ -36,7 +36,7 @@ enum class directionDesignation {
 class UltrasonicSensorModule {
     public:
         UltrasonicSensorModule();
-        ~UltrasonicSensorModule();  
+        ~UltrasonicSensorModule();
         int updateUltrasonicReadings();
         int readUltrasonicSensor(CMD_ENUM c);
         int checkDangerReading(directionDesignation direction);

@@ -30,6 +30,8 @@
 #define CM_PER_CIRCLE 107
 #define CM_SMALL_CIRCLE 53
 
+enum CMD_ENUM {FORWARD, REVERSE, STOP, POINT_LEFT, POINT_RIGHT, FWD_LEFT, FWD_RIGHT, BWD_LEFT, BWD_RIGHT};
+
 class MotorController {
     public:
         MotorController();

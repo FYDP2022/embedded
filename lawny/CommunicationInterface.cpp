@@ -17,6 +17,7 @@ char CommunicationInterface::parseCommand() {
     if (isCommandAvailable() > 0) {
         inputString = Serial.readStringUntil('\n');
         char controller_opt = inputString[0];
+        // TODO
         inputString = inputString.substring(1);
         return controller_opt;
     }

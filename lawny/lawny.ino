@@ -1,8 +1,7 @@
 #include <Arduino.h>
 #include "CommunicationInterface.hpp"
+#include "UltrasonicSensorModule.hpp"
 #include "MotorControl.hpp"
-
-void MOTOR_COUNTER_ISR();
 
 String inputString = "";         // a String to hold incoming data
 bool stringComplete = false;  // whether the string is complete
@@ -18,7 +17,7 @@ char cmd_string[50];
 CommunicationInterface interface = CommunicationInterface();
 
 void setup() {
-    Serial.begin(9600);
+    Serial.begin(115200);
     motor_controller.init();
     // analogWrite(11, 0);
     // attachInterrupt(digitalPinToInterrupt(3), MOTOR_COUNTER_ISR, RISING);
@@ -34,24 +33,8 @@ void loop() {
         motor_controller.parse_command(inputString.c_str());
         stringComplete = false;
         inputString = "";
-        
-        // if(value > 0) {
-        //   digitalWrite(22, LOW);
-        // }
-        // else if(value < 0) {
-        //   value = -value;
-        //   digitalWrite(22, HIGH);
-        // }
-        // analogWrite(11, value);
     }
     motor_controller.update_state();
-    //currentMillis = millis();
-    //if(currentMillis > lastMilis + 1000) {
-    //  lastMilis = currentMillis;
-    //  Serial.println(count);
-    //  Serial.println("MoreCount");
-    //  Serial.println(count32K);
-    //}
 }
 
 void serialEvent() {

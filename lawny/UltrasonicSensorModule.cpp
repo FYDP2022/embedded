@@ -81,7 +81,8 @@ int UltrasonicSensorModule::updateUltrasonicReadings() {
 int UltrasonicSensorModule::checkDangerReading(directionDesignation direction) {
     int index = convertDirectionToIndex(direction);
     int distance = UltrasonicSensorModule::sensorReadings[index];
-    if (distance <= DANGER_DISTANCE) {
+    if (distance <= DANGER_DISTANCE && distance != 0) {
+        // TODO: Use communication interface to throw all errors.
         Serial.println("Sensor " + convertDirectionToName(direction) + " detected we are too close to an obstacle");
         return -1;
     }
@@ -103,10 +104,12 @@ int UltrasonicSensorModule::readUltrasonicSensor(CMD_ENUM c) {
         case POINT_LEFT:
             error_desig += UltrasonicSensorModule::checkDangerReading(directionDesignation::L);
             error_desig += UltrasonicSensorModule::checkDangerReading(directionDesignation::FL);
+            error_desig += UltrasonicSensorModule::checkDangerReading(directionDesignation::BL);
             break;
         case POINT_RIGHT:
             error_desig += UltrasonicSensorModule::checkDangerReading(directionDesignation::R);
             error_desig += UltrasonicSensorModule::checkDangerReading(directionDesignation::FR);
+            error_desig += UltrasonicSensorModule::checkDangerReading(directionDesignation::BR);
             break;
         case FWD_LEFT:
             error_desig += UltrasonicSensorModule::checkDangerReading(directionDesignation::L);
