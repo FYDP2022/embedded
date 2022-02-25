@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include "CommunicationInterface.hpp"
 #include "MotorControl.hpp"
-#include <Servo.h>
 
 void MOTOR_COUNTER_ISR();
 
@@ -16,6 +15,8 @@ int currentMillis;
 char cmd_string[50];
 
 
+CommunicationInterface interface = CommunicationInterface();
+
 void setup() {
     Serial.begin(9600);
     motor_controller.init();
@@ -26,6 +27,7 @@ void setup() {
 }
 
 
+//Will probably have to add code for calling modules in the loop
 void loop() {
     if(stringComplete) {
 
