@@ -15,10 +15,10 @@ void MotorBladeModule::startBladeWithPWM(int duty_cycle) {
     analogWrite(BLADE_PWM, duty_cycle);
 }
 
-void startBlade() {
+void MotorBladeModule::startBlade() {
     analogWrite(BLADE_PWM, BLADE_DUTY_CYCLE);
 }
         
-void stopBlade() {
+void MotorBladeModule::stopBlade() {
     analogWrite(BLADE_PWM, 0);
 }
