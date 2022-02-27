@@ -7,14 +7,14 @@ class CommunicationInterface {
         CommunicationInterface();
         ~CommunicationInterface();         
         int isCommandAvailable();
-        char parseCommand();
-        String sendInputString();
-        int writeToSerial(String msg);
+        char parseCommand(char* cmdInput);
+        int writeErrorToSerial(String Module, String ErrType, String ErrorMsg);
+        int writeSensorDataToSerial(String Module, String SpecificSensor, int Reading);
         void updateState();
 
         
     private:
-        bool stringComplete;
         String inputString;
+        String moduleName = "CommunicationInterface";
 };
 #endif

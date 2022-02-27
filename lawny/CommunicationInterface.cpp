@@ -1,7 +1,6 @@
 #include "CommunicationInterface.hpp"
 
 CommunicationInterface::CommunicationInterface() {
-    stringComplete = false;
     inputString.reserve(200);
 }
 
@@ -13,24 +12,28 @@ int CommunicationInterface::isCommandAvailable() {
     return Serial.available();
 }
 
-char CommunicationInterface::parseCommand() {
+char CommunicationInterface::parseCommand(char* cmdInput) {
     if (isCommandAvailable() > 0) {
         inputString = Serial.readStringUntil('\n');
         char controller_opt = inputString[0];
-        inputString = inputString.substring(1);
+        inputString = inputString.substring(2);
+
+        inputString.toCharArray(cmdInput, inputString.length());
+        inputString = "";
+
         return controller_opt;
     }
     //testing code
     return 'F';
 }
 
-String CommunicationInterface::sendInputString() {
-    String copy = String(inputString);
-    inputString = "";
-    return copy;
-}
-
-int CommunicationInterface::writeToSerial(String msg) {
-    int written = Serial.print(msg);
+int CommunicationInterface::writeErrorToSerial(String module, String errorType, String errorMsg) {
+    int written = Serial.println(String("error") + ":" + module + ":" + errorType + ":" + errorMsg);
     return written;
 }
+
+int CommunicationInterface::writeSensorDataToSerial(String module, String SpecificSensor, int Reading) {
+    int written = Serial.println(String("sensor_data") + ":" + module + ":" + SpecificSensor + ":" + Reading);
+    return written;
+}
+
