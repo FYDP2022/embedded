@@ -5,24 +5,15 @@
 
 String inputString = "";         // a String to hold incoming data
 bool stringComplete = false;  // whether the string is complete
-int value;
-volatile int count;
-volatile int count32K;
-int lastMilis;
-int currentMillis;
 
 char cmd_string[50];
 
-
+//Unused for Now.
 CommunicationInterface interface = CommunicationInterface();
 
 void setup() {
     Serial.begin(115200);
     motor_controller.init();
-    // analogWrite(11, 0);
-    // attachInterrupt(digitalPinToInterrupt(3), MOTOR_COUNTER_ISR, RISING);
-    // pinMode(2, OUTPUT);
-    lastMilis = 0;
 }
 
 
@@ -36,6 +27,8 @@ void loop() {
     }
     motor_controller.update_state();
 }
+
+
 
 void serialEvent() {
   while (Serial.available()) {
