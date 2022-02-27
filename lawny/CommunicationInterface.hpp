@@ -8,10 +8,8 @@ class CommunicationInterface {
         ~CommunicationInterface();         
         int isCommandAvailable();
         char parseCommand(char* cmdInput);
-        int writeErrorToSerial(String Module, String ErrType, String ErrorMsg);
-        int writeSensorDataToSerial(String Module, String SpecificSensor, int Reading);
-        void updateState();
-
+        static int writeErrorToSerial(String Module, String ErrType, String ErrorMsg);
+        static int writeSensorDataToSerial(String Module, String SpecificSensor, int Reading);
         
     private:
         String inputString;

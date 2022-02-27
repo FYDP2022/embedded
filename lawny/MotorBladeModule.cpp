@@ -1,4 +1,5 @@
 #include "MotorBladeModule.hpp"
+#include "CommunicationInterface.hpp"
 
 MotorBladeModule::MotorBladeModule() {
     pinMode(BLADE_DIR, OUTPUT);
@@ -21,4 +22,16 @@ void MotorBladeModule::startBlade() {
         
 void MotorBladeModule::stopBlade() {
     analogWrite(BLADE_PWM, 0);
+}
+
+void MotorBladeModule::parse_command(const char* cmd) {
+    //o for on
+    if (cmd[0] == 'o') {
+        startBlade();
+    //f for off
+    } else if (cmd[0] == 'f') {
+        stopBlade();
+    } else {
+        CommunicationInterface::writeErrorToSerial(moduleName, String("Blade Motor"), "Blade Motor did not get valid on or off command");
+    }
 }

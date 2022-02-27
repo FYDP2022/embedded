@@ -17,4 +17,8 @@ class RelayController {
         void setBladeMotor(int set);
         void setDriverMotor(int set);
         void setFullRelay(int set);
+        void parse_command(const char* cmd);
+
+    private:
+        String moduleName = "RelayController";
 };

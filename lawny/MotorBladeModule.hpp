@@ -13,4 +13,8 @@ class MotorBladeModule {
         void startBlade();
         void stopBlade();
         void parkingBreak();
+        void parse_command(const char* cmd);
+
+    private:
+        String moduleName = "MotorBladeModule";
 };

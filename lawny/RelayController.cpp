@@ -1,4 +1,7 @@
 #include "RelayController.hpp"
+#include "CommunicationInterface.hpp"
+
+char cmd_in[3];
 
 RelayController::RelayController() {
     pinMode(POWER_PIN_1, OUTPUT);
@@ -41,4 +44,36 @@ void RelayController::setFullRelay(int set) {
     RelayController::setPower(set);
     RelayController::setBladeMotor(set);
     RelayController::setDriverMotor(set);
+}
+
+void RelayController::parse_command(const char* cmd) {
+    char relay_part;
+    char on_off;
+    int tokens = sscanf(cmd, "%[^:]:%c:%c", &cmd, &relay_part, &on_off);
+    //a for all
+    if (relay_part == 'a') {
+        //o for on
+        if (on_off == 'o') {
+            setBladeMotor(0);
+        //f for off
+        } else if (on_off == 'f') {
+            setBladeMotor(1);
+        } else {
+            CommunicationInterface::writeErrorToSerial(moduleName, String("Full Relay"), "Full Relay did not get valid on or off command");
+        }
+    }
+    //b for blade
+    else if (relay_part == 'b') {
+        //o for on
+        if (on_off == 'o') {
+            setPower(0);
+        //f for off
+        } else if (on_off == 'f') {
+            setPower(1);
+        } else {
+            CommunicationInterface::writeErrorToSerial(moduleName, String("Blade Relay"), "Blade Relay did not get valid on or off command");
+        }
+    } else {
+        CommunicationInterface::writeErrorToSerial(moduleName, String("Relay command"), "Received invalid Relay command");
+    }
 }
