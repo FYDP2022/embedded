@@ -1,5 +1,14 @@
+#include <Arduino.h>
 #include "CommunicationInterface.hpp"
+#include "UltrasonicSensorModule.hpp"
+#include "MotorControl.hpp"
 
+String inputString = "";         // a String to hold incoming data
+bool stringComplete = false;  // whether the string is complete
+
+char cmd_string[50];
+
+//Unused for Now.
 CommunicationInterface interface = CommunicationInterface();
 char cmdInput [20];
 
