@@ -1,4 +1,5 @@
 #include "MotorControl.hpp"
+#include "CommunicationInterface.hpp"
 //#define DEBUG
 
 MotorController motor_controller;
@@ -114,11 +115,12 @@ int MotorController::parse_command(const char* cmd) {
                 bwd_right(speed_in, bias_in, distance_cm_in);
                 break;
             default:
-                // For now, don't do anything with invalid command, maybe do something in the future.
+                CommunicationInterface::writeErrorToSerial(moduleName, String("Wheel motor"), "Wheel motor did not get valid direction command");
                 return -1;
         }
         return 0;
     }
+    CommunicationInterface::writeErrorToSerial(moduleName, String("Wheel motor"), "Wheel motor input command invalid length");
     return -1;
 }
 

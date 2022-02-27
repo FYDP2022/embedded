@@ -63,7 +63,8 @@ class MotorController {
         int current_right_pwm;
 
         int desired_LCOUNT;
-        int desired_RCOUNT; 
+        int desired_RCOUNT;
+        String moduleName = "MotorController"; 
 };
 
 extern MotorController motor_controller;
