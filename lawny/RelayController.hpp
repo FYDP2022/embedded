@@ -2,11 +2,11 @@
 
 #define BLADE_DUTY_CYCLE 25
 
-#define POWER_PIN_1 50
-#define POWER_PIN_2 51
-#define MOTOR_CONTROLLER_BLADE_1 52
-#define MOTOR_CONTROLLER_BLADE_2 53
-#define DRIVE_MOTOR 54
+#define POWER_PIN_1 49
+#define POWER_PIN_2 50
+#define MOTOR_CONTROLLER_BLADE_1 51
+#define MOTOR_CONTROLLER_BLADE_2 52
+#define DRIVE_MOTOR 53
 
 
 class RelayController {

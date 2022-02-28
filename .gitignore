@@ -1,2 +1,2 @@
 build/*
-!build/build.options.json
+c_cpp_properties.json

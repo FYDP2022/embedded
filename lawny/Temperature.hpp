@@ -3,7 +3,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-#define TEMP_DATA_PIN 8
+#define TEMP_DATA_PIN A15
 #define TEMP_RESOLUTION 9
 #define SENSOR_COUNT 5
 
