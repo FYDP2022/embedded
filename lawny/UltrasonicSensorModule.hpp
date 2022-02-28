@@ -38,7 +38,7 @@ class UltrasonicSensorModule {
         UltrasonicSensorModule();
         ~UltrasonicSensorModule();
         int updateUltrasonicReadings();
-        int readUltrasonicSensor(CMD_ENUM c);
+        int readUltrasonicSensor(DRIVE_CMD_ENUM c);
         int checkDangerReading(directionDesignation direction);
         
     private:

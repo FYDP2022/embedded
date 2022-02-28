@@ -12,17 +12,17 @@ int speed_in;
 int bias_in;
 int distance_cm_in;
 
-inline CMD_ENUM cmd_to_enum(char* s) {
-    if(strcmp(s, "FORWARD") == 0) return CMD_ENUM::FORWARD;
-    if(strcmp(s, "REVERSE") == 0) return CMD_ENUM::REVERSE;
-    if(strcmp(s, "STOP") == 0) return CMD_ENUM::STOP;
-    if(strcmp(s, "POINT_LEFT") == 0) return CMD_ENUM::POINT_LEFT;
-    if(strcmp(s, "POINT_RIGHT") == 0) return CMD_ENUM::POINT_RIGHT;
-    if(strcmp(s, "FWD_LEFT") == 0) return CMD_ENUM::FWD_LEFT;
-    if(strcmp(s, "FWD_RIGHT") == 0) return CMD_ENUM::FWD_RIGHT;
-    if(strcmp(s, "BWD_LEFT") == 0) return CMD_ENUM::BWD_LEFT;
-    if(strcmp(s, "BWD_RIGHT") == 0) return CMD_ENUM::BWD_RIGHT;
-    return CMD_ENUM::INVALID;
+static inline DRIVE_CMD_ENUM cmd_to_enum(const char* s) {
+    if(strcmp(s, "FORWARD") == 0) return DRIVE_CMD_ENUM::FORWARD;
+    if(strcmp(s, "REVERSE") == 0) return DRIVE_CMD_ENUM::REVERSE;
+    if(strcmp(s, "STOP") == 0) return DRIVE_CMD_ENUM::STOP;
+    if(strcmp(s, "POINT_LEFT") == 0) return DRIVE_CMD_ENUM::POINT_LEFT;
+    if(strcmp(s, "POINT_RIGHT") == 0) return DRIVE_CMD_ENUM::POINT_RIGHT;
+    if(strcmp(s, "FWD_LEFT") == 0) return DRIVE_CMD_ENUM::FWD_LEFT;
+    if(strcmp(s, "FWD_RIGHT") == 0) return DRIVE_CMD_ENUM::FWD_RIGHT;
+    if(strcmp(s, "BWD_LEFT") == 0) return DRIVE_CMD_ENUM::BWD_LEFT;
+    if(strcmp(s, "BWD_RIGHT") == 0) return DRIVE_CMD_ENUM::BWD_RIGHT;
+    return DRIVE_CMD_ENUM::INVALID;
 
 }
 
@@ -82,7 +82,7 @@ int MotorController::parse_command(const char* cmd) {
     distance_cm_in = 0;
     int tokens = sscanf(cmd, "%[^:]:%d:%d:%d", &cmd_in, &speed_in, &bias_in, &distance_cm_in);
     if(tokens == 4) {
-        CMD_ENUM c = cmd_to_enum(cmd_in);
+        DRIVE_CMD_ENUM c = cmd_to_enum(cmd_in);
         switch(c) {
             case FORWARD:
                 forward(speed_in, bias_in, distance_cm_in);

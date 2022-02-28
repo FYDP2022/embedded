@@ -55,7 +55,7 @@ void loop() {
     
   }
   wheel_motors.update_state();
-  //gyroaccel.update_state();
+  gyroaccel.update_state();
   temp_sensor.update_state();
 
 }
