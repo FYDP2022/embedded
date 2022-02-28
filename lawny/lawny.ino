@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "CommunicationInterface.hpp"
 #include "UltrasonicSensorModule.hpp"
+#include "Temperature.hpp"
 #include "MotorControl.hpp"
 #include "GyroAccel.hpp"
 
@@ -12,12 +13,13 @@ char cmd_string[50];
 //Unused for Now.
 CommunicationInterface interface = CommunicationInterface();
 GyroAccel gyroaccel = GyroAccel();
+TemperatureSensor temp_sensor = TemperatureSensor();
 
 void setup() {
     Serial.begin(115200);
     gyroaccel.init();
     motor_controller.init();
-    
+    temp_sensor.init();
 }
 
 
@@ -30,7 +32,8 @@ void loop() {
         inputString = "";
     }
     motor_controller.update_state();
-    gyroaccel.update_state();
+    //gyroaccel.update_state();
+    temp_sensor.update_state();
 }
 
 
