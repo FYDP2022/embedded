@@ -18,7 +18,7 @@ char CommunicationInterface::parseCommand(char* cmdInput) {
         char controller_opt = inputString[0];
         inputString = inputString.substring(2);
 
-        inputString.toCharArray(cmdInput, inputString.length());
+        inputString.toCharArray(cmdInput, 50);
         inputString = "";
 
         return controller_opt;
@@ -36,4 +36,3 @@ int CommunicationInterface::writeSensorDataToSerial(String module, String Specif
     int written = Serial.println(String("sensor_data") + ":" + module + ":" + SpecificSensor + ":" + Reading);
     return written;
 }
-

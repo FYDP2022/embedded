@@ -49,9 +49,11 @@ void RelayController::setFullRelay(int set) {
 void RelayController::parse_command(const char* cmd) {
     char relay_part;
     char on_off;
-    int tokens = sscanf(cmd, "%[^:]:%c:%c", &cmd, &relay_part, &on_off);
-    //a for all
-    if (relay_part == 'a') {
+    Serial.println(cmd);
+    int tokens = sscanf(cmd, "%c:%c", &relay_part, &on_off);
+    //b for blade
+    Serial.println(String("RELAY COMMAND: ") + relay_part + on_off);
+    if (relay_part == 'b') {
         //o for on
         if (on_off == 'o') {
             setBladeMotor(0);
@@ -62,8 +64,8 @@ void RelayController::parse_command(const char* cmd) {
             CommunicationInterface::writeErrorToSerial(moduleName, String("Full Relay"), "Full Relay did not get valid on or off command");
         }
     }
-    //b for blade
-    else if (relay_part == 'b') {
+    //a for all
+    else if (relay_part == 'a') {
         //o for on
         if (on_off == 'o') {
             setPower(0);

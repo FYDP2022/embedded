@@ -24,9 +24,9 @@ TemperatureSensor temp_sensor = TemperatureSensor();
 void setup() {
     Serial.begin(115200);
     memset(cmd_string, 0, 50);
-    gyroaccel.init();
-    wheel_motors.init();
-    temp_sensor.init();
+    //gyroaccel.init();
+    //wheel_motors.init();
+    //temp_sensor.init();
 }
 
 
@@ -34,6 +34,7 @@ void setup() {
 void loop() {
   while(interface.isCommandAvailable() > 0) {
     char module = interface.parseCommand(cmd_string);
+    Serial.println(module);
     Serial.println(cmd_string);
     switch (tolower(module)) {
       //Wheel Motors
@@ -43,6 +44,7 @@ void loop() {
       
       //Relay
       case 'r':
+        Serial.println("hit");
         relay.parse_command(cmd_string);
         break;
       
@@ -60,4 +62,3 @@ void loop() {
 
 }
   
-
