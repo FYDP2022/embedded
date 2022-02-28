@@ -73,7 +73,7 @@ void RelayController::parse_command(const char* cmd) {
             #endif
             break;
         default:
-            CommunicationInterface::writeErrorToSerial(moduleName, String("Full Relay"), "Relay did not get valid on or off command");
+            CommunicationInterface::writeErrorToSerial(moduleName, "serial_error", "Relay did not get valid on or off command");
             break;
     }
 }

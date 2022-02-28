@@ -58,4 +58,5 @@ void loop() {
   gyroaccel.update_state();
   temp_sensor.update_state();
   ultrasonic.update_state();
+  blade_motor.update_state(gyroaccel.isFlat());
 }

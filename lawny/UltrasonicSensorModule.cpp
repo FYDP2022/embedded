@@ -49,7 +49,7 @@ int UltrasonicSensorModule::checkDangerReading(directionDesignation direction) {
     int distance = sensorReadings[index];
     if (distance <= DANGER_DISTANCE && distance != 0) {
         String sensor_name = convertDirectionToName((directionDesignation) sensor_index);
-        CommunicationInterface::writeErrorToSerial(moduleName, String("Ultrasonic sensor ") + sensor_name, "Sensor detected to close to obstacle");
+        CommunicationInterface::writeErrorToSerial(moduleName, "state_error", sensor_name + "_detected_close");
         return -1;
     }
     Serial.println(convertDirectionToName(direction) + " " + distance);

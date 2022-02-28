@@ -13,6 +13,7 @@ class MotorBladeModule {
         void startBlade();
         void stopBlade();
         void parkingBreak();
+        void MotorBladeModule::update_state(bool isFlat);
         void parse_command(const char* cmd);
 
     private:

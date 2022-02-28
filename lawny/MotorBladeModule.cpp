@@ -36,6 +36,13 @@ void MotorBladeModule::stopBlade() {
     analogWrite(BLADE_PWM, 0);
 }
 
+void MotorBladeModule::update_state(bool isFlat) {
+    if (!isFlat) {
+        CommunicationInterface::writeErrorToSerial(moduleName, "state_error", "lawny_not_flat");
+        stopBlade();
+    }
+}
+
 void MotorBladeModule::parse_command(const char* cmd) {
     sscanf(cmd, "%s", &on_off_in);
     BLADE_CMD_ENUM on_off = cmd_to_enum(on_off_in);
@@ -53,7 +60,7 @@ void MotorBladeModule::parse_command(const char* cmd) {
             #endif
             break;
         default:
-            CommunicationInterface::writeErrorToSerial(moduleName, String("Blade Motor"), "Blade Motor did not get valid on or off command");
+            CommunicationInterface::writeErrorToSerial(moduleName, "serial_error", "Blade Motor did not get valid on or off command");
             break;
     }
 }
