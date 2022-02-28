@@ -4,6 +4,8 @@
 static char cmd_in[5];
 static char on_off_in[3];
 
+enum RELAY_CMD_ENUM {BLADE, ALL, OFF, ON, INVALID};
+
 static inline RELAY_CMD_ENUM cmd_to_enum(const char* s) {
     if(strcmp(s, "BLADE") == 0) return RELAY_CMD_ENUM::BLADE;
     if(strcmp(s, "ALL") == 0) return RELAY_CMD_ENUM::ALL;
@@ -77,7 +79,6 @@ void RelayController::parse_command(const char* cmd) {
                 break;
         }
     }
-    d:
 
     // if (relay_part == 'a') {
     //     //o for on
