@@ -37,7 +37,7 @@ class UltrasonicSensorModule {
     public:
         UltrasonicSensorModule();
         ~UltrasonicSensorModule();
-        int updateUltrasonicReadings();
+        int update_state();
         int readUltrasonicSensor(DRIVE_CMD_ENUM c);
         int checkDangerReading(directionDesignation direction);
         
@@ -45,7 +45,7 @@ class UltrasonicSensorModule {
         //index 0 is front, index 2 is left, index 4 is back, index 6 is right
         unsigned int sensorReadings [8];
         unsigned int sensor_index = 0;
-        String moduleName = "CommunicationInterface";
+        String moduleName = "UltrasonicSensorModule";
         
         NewPing sonarArr[8] = {
             NewPing(SENSOR_FRONT_TRIGGER, SENSOR_FRONT_ECHO, MAX_DISTANCE),

@@ -37,7 +37,7 @@ UltrasonicSensorModule::~UltrasonicSensorModule() {
     }
 }
 
-int UltrasonicSensorModule::updateUltrasonicReadings() {
+int UltrasonicSensorModule::update_state() {
     String sensor_name = convertDirectionToName((directionDesignation) sensor_index);
     sensorReadings[sensor_index] = sonarArr[sensor_index].ping_cm();
     CommunicationInterface::writeSensorDataToSerial(moduleName, sensor_name, sensorReadings[sensor_index]);

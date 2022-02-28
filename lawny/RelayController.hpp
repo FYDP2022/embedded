@@ -11,9 +11,9 @@
 
 class RelayController {
     public:
-        RelayController();
         ~RelayController();
         //set either 1 or 0 (0 for on, 1 for off)
+        void init();
         void setPower(int set);
         void setBladeMotor(int set);
         void setDriverMotor(int set);

@@ -8,21 +8,15 @@ CommunicationInterface::~CommunicationInterface() {
     return;
 }
 
-int CommunicationInterface::isCommandAvailable() {
-    return Serial.available();
-}
-
 char CommunicationInterface::parseCommand(char* cmdInput) {
-    if (isCommandAvailable() > 0) {
-        inputString = Serial.readStringUntil('\n');
-        char controller_opt = inputString[0];
-        inputString = inputString.substring(2);
+    inputString = Serial.readStringUntil('\n');
+    char controller_opt = inputString[0];
+    inputString = inputString.substring(2);
 
-        inputString.toCharArray(cmdInput, 50);
-        inputString = "";
+    inputString.toCharArray(cmdInput, 50);
+    inputString = "";
 
-        return controller_opt;
-    }
+    return controller_opt;
     //testing code
     return 'F';
 }

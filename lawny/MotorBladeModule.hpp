@@ -7,8 +7,8 @@
 
 class MotorBladeModule {
     public:
-        MotorBladeModule();
         ~MotorBladeModule();
+        void init();
         void startBladeWithPWM(int duty_cycle);
         void startBlade();
         void stopBlade();
