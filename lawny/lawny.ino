@@ -5,7 +5,7 @@
 #include "MotorControl.hpp"
 #include "MotorBladeModule.hpp"
 #include "RelayController.hpp"
-#include "GyroAccel.hpp"
+//#include "GyroAccel.hpp"
 
 String inputString = "";         // a String to hold incoming data
 bool stringComplete = false;  // whether the string is complete
@@ -18,7 +18,7 @@ UltrasonicSensorModule ultrasonic = UltrasonicSensorModule();
 MotorController wheel_motors = MotorController();
 MotorBladeModule blade_motor = MotorBladeModule();
 RelayController relay = RelayController();
-GyroAccel gyroaccel = GyroAccel();
+//GyroAccel gyroaccel = GyroAccel();
 TemperatureSensor temp_sensor = TemperatureSensor();
 
 void setup() {

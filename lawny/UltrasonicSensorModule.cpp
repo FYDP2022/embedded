@@ -56,7 +56,7 @@ int UltrasonicSensorModule::checkDangerReading(directionDesignation direction) {
     return 0;
 }
 
-int UltrasonicSensorModule::readUltrasonicSensor(CMD_ENUM c) {
+int UltrasonicSensorModule::readUltrasonicSensor(DRIVE_CMD_ENUM c) {
     int error_desig = 0;
     switch(c) {
         case FORWARD:

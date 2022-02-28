@@ -1,4 +1,4 @@
-#include <Ardugino.h>
+#include <Arduino.h>
 
 #define BLADE_DUTY_CYCLE 25
 
@@ -7,6 +7,7 @@
 #define MOTOR_CONTROLLER_BLADE_1 52
 #define MOTOR_CONTROLLER_BLADE_2 53
 #define DRIVE_MOTOR 54
+
 
 class RelayController {
     public:

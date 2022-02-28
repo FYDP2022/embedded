@@ -1,7 +1,19 @@
 #include "RelayController.hpp"
 #include "CommunicationInterface.hpp"
 
-char cmd_in[3];
+static char cmd_in[5];
+static char on_off_in[3];
+
+enum RELAY_CMD_ENUM {BLADE, ALL, OFF, ON, INVALID};
+
+static inline RELAY_CMD_ENUM cmd_to_enum(const char* s) {
+    if(strcmp(s, "BLADE") == 0) return RELAY_CMD_ENUM::BLADE;
+    if(strcmp(s, "ALL") == 0) return RELAY_CMD_ENUM::ALL;
+    if(strcmp(s, "OFF") == 0) return RELAY_CMD_ENUM::OFF;
+    if(strcmp(s, "ON") == 0) return RELAY_CMD_ENUM::ON;
+    return RELAY_CMD_ENUM::INVALID;
+}
+
 
 RelayController::RelayController() {
     pinMode(POWER_PIN_1, OUTPUT);
@@ -48,34 +60,49 @@ void RelayController::setFullRelay(int set) {
 
 void RelayController::parse_command(const char* cmd) {
     char relay_part;
-    char on_off;
-    Serial.println(cmd);
-    int tokens = sscanf(cmd, "%c:%c", &relay_part, &on_off);
-    //b for blade
-    Serial.println(String("RELAY COMMAND: ") + relay_part + on_off);
-    if (relay_part == 'b') {
-        //o for on
-        if (on_off == 'o') {
-            setBladeMotor(0);
-        //f for off
-        } else if (on_off == 'f') {
-            setBladeMotor(1);
-        } else {
-            CommunicationInterface::writeErrorToSerial(moduleName, String("Full Relay"), "Full Relay did not get valid on or off command");
+    memset(cmd_in, 0, 5);
+    int tokens = sscanf(cmd, "%[^:]:%d", &cmd_in, &on_off_in);
+    if(tokens == 2) {
+        RELAY_CMD_ENUM c = cmd_to_enum(cmd_in);
+        RELAY_CMD_ENUM on_off = cmd_to_enum(on_off_in);
+        switch(c) {
+            case ALL:
+                if(on_off == RELAY_CMD_ENUM::ON) {
+                    setFullRelay(0);
+                } 
+                else if (on_off == RELAY_CMD_ENUM::OFF) {
+                    setFullRelay(1);
+                }
+                break;
+            
+            default:
+                break;
         }
     }
-    //a for all
-    else if (relay_part == 'a') {
-        //o for on
-        if (on_off == 'o') {
-            setPower(0);
-        //f for off
-        } else if (on_off == 'f') {
-            setPower(1);
-        } else {
-            CommunicationInterface::writeErrorToSerial(moduleName, String("Blade Relay"), "Blade Relay did not get valid on or off command");
-        }
-    } else {
-        CommunicationInterface::writeErrorToSerial(moduleName, String("Relay command"), "Received invalid Relay command");
-    }
+
+    // if (relay_part == 'a') {
+    //     //o for on
+    //     if (on_off == 'o') {
+    //         setBladeMotor(0);
+    //     //f for off
+    //     } else if (on_off == 'f') {
+    //         setBladeMotor(1);
+    //     } else {
+    //         CommunicationInterface::writeErrorToSerial(moduleName, String("Full Relay"), "Full Relay did not get valid on or off command");
+    //     }
+    // }
+    // //b for blade
+    // else if (relay_part == 'b') {
+    //     //o for on
+    //     if (on_off == 'o') {
+    //         setPower(0);
+    //     //f for off
+    //     } else if (on_off == 'f') {
+    //         setPower(1);
+    //     } else {
+    //         CommunicationInterface::writeErrorToSerial(moduleName, String("Blade Relay"), "Blade Relay did not get valid on or off command");
+    //     }
+    // } else {
+    //     CommunicationInterface::writeErrorToSerial(moduleName, String("Relay command"), "Received invalid Relay command");
+    // }
 }
