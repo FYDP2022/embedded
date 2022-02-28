@@ -2,14 +2,12 @@
 #include "CommunicationInterface.hpp"
 //#define DEBUG
 
-MotorController motor_controller;
-
 volatile long LCOUNT = 0;
 volatile long RCOUNT = 0;
 int current_left_dir = 0;
 int current_right_dir = 0;
 
-char cmd_in[12];
+static char cmd_in[12];
 int speed_in;
 int bias_in;
 int distance_cm_in;

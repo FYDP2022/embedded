@@ -67,6 +67,6 @@ class MotorController {
         String moduleName = "MotorController"; 
 };
 
-extern MotorController motor_controller;
+extern MotorController wheel_motors;
 
 #endif
