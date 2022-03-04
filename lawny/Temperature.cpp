@@ -42,14 +42,18 @@ TemperatureSensor::~TemperatureSensor() {
 
 }
 
-void TemperatureSensor::init() {
+bool TemperatureSensor::init() {
     sensors.begin();
     foundDeviceCount = sensors.getDeviceCount();
+    if(foundDeviceCount != SENSOR_COUNT) {
+        return false;
+    }
     sensors.setResolution(TEMP_RESOLUTION);
     sensors.setWaitForConversion(false);
     sensors.requestTemperatures();
     lastTempRequest = millis();
     delayInMillis = 750 / (1 << (12 - TEMP_RESOLUTION));
+    return true;
 }
 
 void TemperatureSensor::update_state() {

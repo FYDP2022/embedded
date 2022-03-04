@@ -7,15 +7,17 @@
 
 class MotorBladeModule {
     public:
+        MotorBladeModule();
         ~MotorBladeModule();
-        void init();
-        void startBladeWithPWM(int duty_cycle);
-        void startBlade();
+        bool init();
+        
         void stopBlade();
-        void parkingBreak();
-        void MotorBladeModule::update_state(bool isFlat);
+        void parkingBrake();
+        void update_state(bool isFlat);
         void parse_command(const char* cmd);
 
     private:
+        void startBladeWithPWM(int duty_cycle);
+        void startBlade();
         String moduleName = "MotorBladeModule";
 };

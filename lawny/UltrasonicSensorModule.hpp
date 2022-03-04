@@ -13,8 +13,8 @@
 #define SENSOR_LEFT_TRIGGER 31
 #define SENSOR_BACK_LEFT_ECHO 32
 #define SENSOR_BACK_LEFT_TRIGGER 33
-#define SENSOR_BACK_ECHO 34
-#define SENSOR_BACK_TRIGGER 35
+#define SENSOR_BACK_ECHO 34  // Back not used
+#define SENSOR_BACK_TRIGGER 35 // Back not used
 #define SENSOR_BACK_RIGHT_ECHO 36
 #define SENSOR_BACK_RIGHT_TRIGGER 37
 #define SENSOR_RIGHT_ECHO 40
@@ -38,7 +38,7 @@ class UltrasonicSensorModule {
         UltrasonicSensorModule();
         ~UltrasonicSensorModule();
         int update_state();
-        int readUltrasonicSensor(DRIVE_CMD_ENUM c);
+        int isSafeUltraSonic(DRIVE_CMD_ENUM c);
         int checkDangerReading(directionDesignation direction);
         
     private:

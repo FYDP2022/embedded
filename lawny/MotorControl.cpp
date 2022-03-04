@@ -51,8 +51,8 @@ MotorController::~MotorController() {
 
 }
 
-void MotorController::init() {
-    TCCR5B = TCCR5B & B11111000 | B00000010; // set timer 5 divisor to 8 for PWM frequency of  3921.16 Hz (Pins 2, 3)
+bool MotorController::init() {
+    TCCR5B = TCCR5B & B11111000 | B00000010; // set timer 5 divisor to 8 for PWM frequency of  3921.16 Hz (Pins 44, 45)
     analogWrite(LEFT_PWM, 0); // Set motors to PWM stop
     analogWrite(RIGHT_PWM, 0); // Set motors to PWM stop
     pinMode(LEFT_DIR, OUTPUT); // Direction Pins
@@ -67,8 +67,8 @@ void MotorController::init() {
     pinMode(RIGHT_MOTOR_ENCODER, INPUT_PULLUP);
     attachInterrupt(digitalPinToInterrupt(RIGHT_MOTOR_ENCODER), MOTOR_COUNTER_ISR_R, FALLING); // Encoder Pins
     attachInterrupt(digitalPinToInterrupt(LEFT_MOTOR_ENCODER), MOTOR_COUNTER_ISR_L, FALLING); // Encoder Pins
-    
     sei(); // Re-enable interupts
+    return true;
 }
 
 void MotorController::update_state() { // To be called very often
@@ -84,32 +84,32 @@ int MotorController::parse_command(const char* cmd) {
     if(tokens == 4) {
         DRIVE_CMD_ENUM c = cmd_to_enum(cmd_in);
         switch(c) {
-            case FORWARD:
+            case DRIVE_CMD_ENUM::FORWARD:
                 forward(speed_in, bias_in, distance_cm_in);
                 break;
-            case REVERSE:
+            case DRIVE_CMD_ENUM::REVERSE:
                 reverse(speed_in, bias_in, distance_cm_in);
                 break;
-            case STOP:
+            case DRIVE_CMD_ENUM::STOP:
                 stop_moving();
                 break;
             // For turning, "distance_cm_in" represents degrees instead of centimeters.
-            case POINT_LEFT:
+            case DRIVE_CMD_ENUM::POINT_LEFT:
                 point_left(speed_in, bias_in, distance_cm_in);
                 break;
-            case POINT_RIGHT:
+            case DRIVE_CMD_ENUM::POINT_RIGHT:
                 point_right(speed_in, bias_in, distance_cm_in);
                 break;
-            case FWD_LEFT:
+            case DRIVE_CMD_ENUM::FWD_LEFT:
                 fwd_left(speed_in, bias_in, distance_cm_in);
                 break;
-            case FWD_RIGHT:
+            case DRIVE_CMD_ENUM::FWD_RIGHT:
                 fwd_right(speed_in, bias_in, distance_cm_in);
                 break;
-            case BWD_LEFT:
+            case DRIVE_CMD_ENUM::BWD_LEFT:
                 bwd_left(speed_in, bias_in, distance_cm_in);
                 break;
-            case BWD_RIGHT:
+            case DRIVE_CMD_ENUM::BWD_RIGHT:
                 bwd_right(speed_in, bias_in, distance_cm_in);
                 break;
             default:

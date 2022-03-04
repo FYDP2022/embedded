@@ -7,8 +7,8 @@
 #include "RelayController.hpp"
 #include "GyroAccel.hpp"
 
-String inputString = "";         // a String to hold incoming data
-bool stringComplete = false;  // whether the string is complete
+// Reset Function
+void (* resetFunc) (void) = 0;
 
 char cmd_string[50];
 
@@ -23,37 +23,43 @@ TemperatureSensor temp_sensor = TemperatureSensor();
 
 void setup() {
     Serial.begin(115200);
+    //Wait until Serial is initialized
+    while(!Serial);
     memset(cmd_string, 0, 50);
-    relay.init();
-    gyroaccel.init();
-    wheel_motors.init();
-    temp_sensor.init();
-    blade_motor.init();
+    bool err_cnt = 0;
+    err_cnt |= relay.init();
+    err_cnt |= gyroaccel.init();
+    err_cnt |= wheel_motors.init();
+    err_cnt |= temp_sensor.init();
+    err_cnt |= blade_motor.init();
+    if(err_cnt != 0) {
+      interface.writeErrorToSerial(String("SETUP"), String("INIT"), String("failed initialization"));
+    }
 }
 
 
 //Will probably have to add code for calling modules in the loop
 void loop() {
     if (Serial.available()) {
-    char module = interface.parseCommand(cmd_string);
-    switch (toUpperCase(module)) {
-      //Wheel Motors
-      case 'W':
-        wheel_motors.parse_command(cmd_string);
-        break;
-      
-      //Relay
-      case 'R':
-        relay.parse_command(cmd_string);
-        break;
-      
-      //Blade Motors
-      case 'B':
-        blade_motor.parse_command(cmd_string);
-        break;
+      char module = interface.parseCommand(cmd_string);
+      switch (toUpperCase(module)) {
+        //Wheel Motors
+        case 'W':
+          wheel_motors.parse_command(cmd_string);
+          break;
+        
+        //Relay
+        case 'R':
+          relay.parse_command(cmd_string);
+          break;
+        
+        //Blade Motors
+        case 'B':
+          blade_motor.parse_command(cmd_string);
+          break;
+      }
+      memset(cmd_string, 0, 50);
     }
-    memset(cmd_string, 0, 50);
-  }
   wheel_motors.update_state();
   gyroaccel.update_state();
   temp_sensor.update_state();

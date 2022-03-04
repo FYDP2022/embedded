@@ -22,11 +22,11 @@ char CommunicationInterface::parseCommand(char* cmdInput) {
 }
 
 int CommunicationInterface::writeErrorToSerial(String module, String errorType, String errorMsg) {
-    int written = Serial.println(String("error") + ":" + module + ":" + errorType + ":" + errorMsg);
+    int written = Serial.println(String("ERROR") + ":" + module + ":" + errorType + ":" + errorMsg);
     return written;
 }
 
 int CommunicationInterface::writeSensorDataToSerial(String module, String SpecificSensor, int Reading) {
-    int written = Serial.println(String("sensor_data") + ":" + module + ":" + SpecificSensor + ":" + Reading);
+    int written = Serial.println(String("SENSOR_DATA") + ":" + module + ":" + SpecificSensor + ":" + Reading);
     return written;
 }

@@ -11,7 +11,7 @@ class TemperatureSensor {
     public:
         TemperatureSensor();
         ~TemperatureSensor();
-        void init();
+        bool init();
         
         void update_state();
 

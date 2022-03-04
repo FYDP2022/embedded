@@ -56,43 +56,43 @@ int UltrasonicSensorModule::checkDangerReading(directionDesignation direction) {
     return 0;
 }
 
-int UltrasonicSensorModule::readUltrasonicSensor(DRIVE_CMD_ENUM c) {
+int UltrasonicSensorModule::isSafeUltraSonic(DRIVE_CMD_ENUM c) {
     int error_desig = 0;
     switch(c) {
-        case FORWARD:
+        case DRIVE_CMD_ENUM::FORWARD:
             error_desig += checkDangerReading(directionDesignation::F);
             break;
-        case REVERSE:
+        case DRIVE_CMD_ENUM::REVERSE:
             error_desig += checkDangerReading(directionDesignation::B);
             break;
-        case STOP:
+        case DRIVE_CMD_ENUM::STOP:
             break;
-        case POINT_LEFT:
+        case DRIVE_CMD_ENUM::POINT_LEFT:
             error_desig += checkDangerReading(directionDesignation::L);
             error_desig += checkDangerReading(directionDesignation::FL);
             error_desig += checkDangerReading(directionDesignation::BL);
             break;
-        case POINT_RIGHT:
+        case DRIVE_CMD_ENUM::POINT_RIGHT:
             error_desig += checkDangerReading(directionDesignation::R);
             error_desig += checkDangerReading(directionDesignation::FR);
             error_desig += checkDangerReading(directionDesignation::BR);
             break;
-        case FWD_LEFT:
+        case DRIVE_CMD_ENUM::FWD_LEFT:
             error_desig += checkDangerReading(directionDesignation::L);
             error_desig += checkDangerReading(directionDesignation::FL);
             error_desig += checkDangerReading(directionDesignation::F);
             break;
-        case FWD_RIGHT:
+        case DRIVE_CMD_ENUM::FWD_RIGHT:
             error_desig += checkDangerReading(directionDesignation::R);
             error_desig += checkDangerReading(directionDesignation::FR);
             error_desig += checkDangerReading(directionDesignation::F);
             break;
-        case BWD_LEFT:
+        case DRIVE_CMD_ENUM::BWD_LEFT:
             error_desig += checkDangerReading(directionDesignation::L);
             error_desig += checkDangerReading(directionDesignation::BL);
             error_desig += checkDangerReading(directionDesignation::B);
             break;
-        case BWD_RIGHT:
+        case DRIVE_CMD_ENUM::BWD_RIGHT:
             error_desig += checkDangerReading(directionDesignation::R);
             error_desig += checkDangerReading(directionDesignation::BR);
             error_desig += checkDangerReading(directionDesignation::B);

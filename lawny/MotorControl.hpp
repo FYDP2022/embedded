@@ -30,13 +30,13 @@
 #define CM_LARGE_CIRCLE 107L
 #define CM_SMALL_CIRCLE 53L
 
-enum DRIVE_CMD_ENUM {FORWARD, REVERSE, STOP, POINT_LEFT, POINT_RIGHT, FWD_LEFT, FWD_RIGHT, BWD_LEFT, BWD_RIGHT, INVALID};
+enum class DRIVE_CMD_ENUM {FORWARD, REVERSE, STOP, POINT_LEFT, POINT_RIGHT, FWD_LEFT, FWD_RIGHT, BWD_LEFT, BWD_RIGHT, INVALID};
 
 class MotorController {
     public:
         MotorController();
         ~MotorController();
-        void init();
+        bool init();
         
         void update_state();
         

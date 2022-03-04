@@ -21,7 +21,7 @@ RelayController::~RelayController() {
     digitalWrite(DRIVE_MOTOR, 1);
 }
 
-void RelayController::init() {
+bool RelayController::init() {
     pinMode(POWER_PIN_1, OUTPUT);
     pinMode(POWER_PIN_2, OUTPUT);
     pinMode(MOTOR_CONTROLLER_BLADE_1, OUTPUT);
@@ -34,6 +34,7 @@ void RelayController::init() {
     digitalWrite(MOTOR_CONTROLLER_BLADE_1, 1);
     digitalWrite(MOTOR_CONTROLLER_BLADE_2, 1);
     digitalWrite(DRIVE_MOTOR, 1);
+    return true;
 }
 
 void RelayController::setPower(int set) {

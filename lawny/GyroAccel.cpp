@@ -1,5 +1,8 @@
 #include "GyroAccel.hpp"
 #include <Wire.h>
+
+#define DEBUG
+
 unsigned long timer;
 
 GyroAccel::GyroAccel() : mpu(Wire) {
@@ -53,5 +56,8 @@ bool GyroAccel::isFlat(int threshold) {
     if(abs(X) < 10.0 && abs(Y) < 10.0) {
         return true;
     }
+    #ifdef DEBUG
+    Serial.println("LAWNY DETECTED NOT FLAT!");
+    #endif
     return false;
 }
