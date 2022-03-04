@@ -1,5 +1,7 @@
 #include "MotorControl.hpp"
 #include "CommunicationInterface.hpp"
+#include "UltrasonicSensorModule.hpp"
+#include "GyroAccel.hpp"
 //#define DEBUG
 
 volatile long LCOUNT = 0;
@@ -73,6 +75,14 @@ bool MotorController::init() {
 
 void MotorController::update_state() { // To be called very often
     check_encoder_state();
+    // Check ultrasonic safety
+    if(!ultrasonic.isSafeUltraSonic(current_state)) {
+        stop_moving();
+    }
+    // Check gyroscope safety
+    if(!gyroaccel.isFlat()) {
+        stop_moving();
+    }
 }
 
 int MotorController::parse_command(const char* cmd) {
@@ -83,7 +93,8 @@ int MotorController::parse_command(const char* cmd) {
     int tokens = sscanf(cmd, "%[^:]:%d:%d:%d", &cmd_in, &speed_in, &bias_in, &distance_cm_in);
     if(tokens == 4) {
         DRIVE_CMD_ENUM c = cmd_to_enum(cmd_in);
-        switch(c) {
+        if(ultrasonic.isSafeUltraSonic(c)) {
+            switch(c) {
             case DRIVE_CMD_ENUM::FORWARD:
                 forward(speed_in, bias_in, distance_cm_in);
                 break;
@@ -115,6 +126,8 @@ int MotorController::parse_command(const char* cmd) {
             default:
                 CommunicationInterface::writeErrorToSerial(moduleName, String("Wheel motor"), "Wheel motor did not get valid direction command");
                 return -1;
+            current_state = c;
+            }
         }
         return 0;
     }
@@ -126,6 +139,7 @@ void MotorController::stop_moving() {
     stop_left();
     stop_right();
     set_encoder_targets(0,0);
+    current_state = DRIVE_CMD_ENUM::STOP;
 }
 
 void MotorController::forward(int speed, int bias, int cm) {
@@ -167,6 +181,9 @@ void MotorController::stop_left() {
     #endif
     analogWrite(LEFT_PWM, 0);
     current_left_pwm = 0;
+    if(current_right_pwm == 0) {
+        current_state = DRIVE_CMD_ENUM::STOP;
+    }
 }
 
 void MotorController::stop_right() {
@@ -175,6 +192,9 @@ void MotorController::stop_right() {
     #endif
     analogWrite(RIGHT_PWM, 0);
     current_right_pwm = 0;
+    if(current_left_pwm == 0) {
+        current_state = DRIVE_CMD_ENUM::STOP;
+    }
 }
 
 void MotorController::point_left(int speed, int bias, int degrees) {

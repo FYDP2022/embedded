@@ -97,6 +97,8 @@ int UltrasonicSensorModule::isSafeUltraSonic(DRIVE_CMD_ENUM c) {
             error_desig += checkDangerReading(directionDesignation::BR);
             error_desig += checkDangerReading(directionDesignation::B);
             break;
+        default:
+            break;
     }
     return error_desig;
 }

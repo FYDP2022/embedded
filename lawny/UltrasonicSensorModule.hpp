@@ -58,3 +58,5 @@ class UltrasonicSensorModule {
             NewPing(SENSOR_FRONT_RIGHT_TRIGGER, SENSOR_FRONT_RIGHT_ECHO, MAX_DISTANCE)
         };
 };
+
+extern UltrasonicSensorModule ultrasonic;

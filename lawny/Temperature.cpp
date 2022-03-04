@@ -64,6 +64,7 @@ void TemperatureSensor::update_state() {
         sensors.requestTemperatures();
         lastTempRequest = millis();  
     }
+    // TODO: Create proper interval to send sensor data, maybe another module?
 }
 
 float TemperatureSensor::getTemperature(int index) {

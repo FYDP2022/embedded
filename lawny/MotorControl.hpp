@@ -65,6 +65,7 @@ class MotorController {
         int desired_LCOUNT;
         int desired_RCOUNT;
         String moduleName = "MotorController"; 
+        DRIVE_CMD_ENUM current_state;
 };
 
 extern MotorController wheel_motors;
